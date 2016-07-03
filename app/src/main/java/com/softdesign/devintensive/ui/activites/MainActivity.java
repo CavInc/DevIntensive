@@ -15,9 +15,6 @@ import com.softdesign.devintensive.utils.ConstantManager;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private static final String TAG= ConstantManager.TAG_PREFIX+"Main Activity";
 
-    private EditText mEditText;
-    private Button mRedButton,mGreenButton;
-    private int mColorMode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,19 +22,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         Log.d(TAG, "Create");
 
-        mRedButton = (Button) findViewById(R.id.red_btn);
-        mGreenButton = (Button) findViewById(R.id.green_btn);
-        mEditText = (EditText) findViewById(R.id.editText);
-
-        mRedButton.setOnClickListener(this);
-        mGreenButton.setOnClickListener(this);
-
         if (savedInstanceState == null) {
             // актифить прервый раз
         } else {
             // последующие запуски
-            mColorMode = savedInstanceState.getInt(ConstantManager.COLOR_MODE_KEY);
-            mEditText.setBackgroundColor(mColorMode);
+
         }
     }
 
@@ -65,7 +54,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onSaveInstanceState(outState);
         Log.d(TAG, "onSaveInstanceState");
 
-        outState.putInt(ConstantManager.COLOR_MODE_KEY,mColorMode);
     }
 
     @Override
@@ -94,16 +82,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.red_btn:
-                mEditText.setBackgroundColor(Color.RED);
-                mColorMode = Color.RED;
-                break;
-            case R.id.green_btn:
-                mEditText.setBackgroundColor(Color.GREEN);
-                mColorMode = Color.GREEN;
-                break;
-        }
 
     }
 }
