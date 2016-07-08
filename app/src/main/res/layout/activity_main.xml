@@ -203,8 +203,6 @@
             android:layout_marginTop="@dimen/spacing_small_8"
             android:layout_marginBottom="@dimen/spacing_small_8"
             >
-
-
             <ImageView
                 style="@style/icon.left"
                 android:src="@drawable/vk_circle"/>
@@ -300,8 +298,6 @@
             android:layout_marginTop="@dimen/spacing_small_8"
             android:layout_marginBottom="@dimen/spacing_small_8"
             >
-
-
             <ImageView
                 style="@style/icon.left"
                 android:src="@drawable/ic_account_circle_black_24dp"/>
@@ -346,6 +342,7 @@
 
 </android.support.v4.widget.NestedScrollView>
     <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_mode_edit_black_24dp"
