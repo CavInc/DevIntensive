@@ -2,7 +2,9 @@ package com.softdesign.devintensive.ui.activites;
 
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.os.Handler;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -16,6 +18,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private static final String TAG= ConstantManager.TAG_PREFIX+"Main Activity";
 
     private ImageView mImageView;
+    private CoordinatorLayout mCoordinatorLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,13 +27,15 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         Log.d(TAG, "Create");
 
         mImageView = (ImageView) findViewById(R.id.call_img);
-        mImageView.setOnClickListener(this);
+        mCoordinatorLayout = (CoordinatorLayout) findViewById(R.id.main_coordinator_container);
+      //  mImageView.setOnClickListener(this);
 
         if (savedInstanceState == null) {
             // актифить прервый раз
+            showSnackbar("Активити запускается в первые");
         } else {
             // последующие запуски
-
+            showSnackbar("Активити запускается вторично");
         }
     }
 
@@ -88,9 +93,24 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.call_img:
-                showProgress();
+              //  showProgress();
+              //  runWihtDelay();
                 break;
         }
 
+    }
+
+    private void runWihtDelay(){
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                hideProgress();
+            }
+        },3000);
+    }
+
+    private void showSnackbar(String message) {
+        Snackbar.make(mCoordinatorLayout,message,Snackbar.LENGTH_LONG).show();
     }
 }
