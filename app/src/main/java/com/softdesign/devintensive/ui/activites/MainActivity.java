@@ -5,9 +5,11 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.ActionBar;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.support.v7.widget.Toolbar;
 
 
 import com.softdesign.devintensive.R;
@@ -19,6 +21,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     private ImageView mImageView;
     private CoordinatorLayout mCoordinatorLayout;
+    private Toolbar mToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +31,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
         mImageView = (ImageView) findViewById(R.id.call_img);
         mCoordinatorLayout = (CoordinatorLayout) findViewById(R.id.main_coordinator_container);
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
       //  mImageView.setOnClickListener(this);
+        setupToolbar();
 
         if (savedInstanceState == null) {
             // актифить прервый раз
@@ -110,5 +115,17 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     private void showSnackbar(String message) {
         Snackbar.make(mCoordinatorLayout,message,Snackbar.LENGTH_LONG).show();
+    }
+
+    private void setupToolbar(){
+        setSupportActionBar(mToolbar);
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar!=null) {
+            actionBar.setHomeAsUpIndicator(R.drawable.ic_menu_black_24dp);
+            actionBar.setDisplayHomeAsUpEnabled(true);
+
+        }
+
+
     }
 }
