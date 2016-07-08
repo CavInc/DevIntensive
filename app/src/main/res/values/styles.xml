@@ -52,6 +52,10 @@
         <item name="android:fontFamily">sans-serif-condensed</item>
     </style>
 
+    <style name="user_info.item" parent="user_info">
+        <item name="android:orientation">horizontal</item>
+    </style>
+
     <style name="custom_dialog">
         <item name="android:fullDark">@android:color/transparent</item>
 
