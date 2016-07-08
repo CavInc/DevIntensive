@@ -5,21 +5,26 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 
 
 import com.softdesign.devintensive.R;
 import com.softdesign.devintensive.utils.ConstantManager;
 
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends BaseActivity implements View.OnClickListener {
     private static final String TAG= ConstantManager.TAG_PREFIX+"Main Activity";
 
+    private ImageView mImageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Log.d(TAG, "Create");
+
+        mImageView = (ImageView) findViewById(R.id.call_img);
+        mImageView.setOnClickListener(this);
 
         if (savedInstanceState == null) {
             // актифить прервый раз
@@ -81,6 +86,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.call_img:
+                showProgress();
+                break;
+        }
 
     }
 }
