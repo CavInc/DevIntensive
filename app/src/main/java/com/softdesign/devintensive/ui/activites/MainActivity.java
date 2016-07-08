@@ -32,10 +32,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
         if (savedInstanceState == null) {
             // актифить прервый раз
-            showSnackbar("Активити запускается в первые");
         } else {
             // последующие запуски
-            showSnackbar("Активити запускается вторично");
         }
     }
 
