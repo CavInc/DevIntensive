@@ -4,9 +4,14 @@ package com.softdesign.devintensive.ui.activites;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.support.v7.widget.Toolbar;
@@ -22,6 +27,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private ImageView mImageView;
     private CoordinatorLayout mCoordinatorLayout;
     private Toolbar mToolbar;
+    private DrawerLayout mNavigationDrawer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,8 +38,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         mImageView = (ImageView) findViewById(R.id.call_img);
         mCoordinatorLayout = (CoordinatorLayout) findViewById(R.id.main_coordinator_container);
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
-      //  mImageView.setOnClickListener(this);
+        mNavigationDrawer = (DrawerLayout) findViewById(R.id.navigation_drawer);
+
+        mImageView.setOnClickListener(this);
         setupToolbar();
+        setupDrower();
 
         if (savedInstanceState == null) {
             // актифить прервый раз
@@ -93,6 +102,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     }
 
     @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId()==android.R.id.home){
+            mNavigationDrawer.openDrawer(GravityCompat.START);
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.call_img:
@@ -125,7 +142,17 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             actionBar.setDisplayHomeAsUpEnabled(true);
 
         }
-
-
+    }
+    private void setupDrower(){
+        NavigationView navigationView = (NavigationView) findViewById(R.id.navigation_view);
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener(){
+            @Override
+            public boolean onNavigationItemSelected(MenuItem item) {
+                showSnackbar(item.getTitle().toString());
+                item.setChecked(true);
+                mNavigationDrawer.closeDrawer(GravityCompat.START);
+                return false;
+            }
+        });
     }
 }
