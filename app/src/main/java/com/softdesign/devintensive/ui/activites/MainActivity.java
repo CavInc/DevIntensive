@@ -1,6 +1,7 @@
 package com.softdesign.devintensive.ui.activites;
 
 
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.CoordinatorLayout;
@@ -22,6 +23,7 @@ import android.support.v7.widget.Toolbar;
 import com.softdesign.devintensive.R;
 import com.softdesign.devintensive.data.managers.DataManager;
 import com.softdesign.devintensive.utils.ConstantManager;
+import com.softdesign.devintensive.utils.RoundedBitmap;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,6 +75,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         setupToolbar();
         setupDrower();
         loadUserInfoValue();
+
 
         if (savedInstanceState == null) {
             // актифить прервый раз
@@ -139,6 +142,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId()==android.R.id.home){
             mNavigationDrawer.openDrawer(GravityCompat.START);
+            setNavigationDrawerIcon();
         }
         return super.onOptionsItemSelected(item);
     }
@@ -240,5 +244,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             userData.add(userFieldView.getText().toString());
         }
         mDataManager.getPreferensManager().saveUserProfileData(userData);
+    }
+
+    private void setNavigationDrawerIcon(){
+        ImageView imageView=(ImageView) findViewById(R.id.user_photo_drawer_igm);
+        //imageView.setImageResource(R.drawable.userphoto);
+        imageView.setImageBitmap(new RoundedBitmap(
+                BitmapFactory.decodeResource(this.getResources(), R.drawable.userphoto))
+                .getRoundedBitmap());
+
     }
 }

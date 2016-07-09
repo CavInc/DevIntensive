@@ -67,7 +67,7 @@
             android:orientation="horizontal">
             <LinearLayout
                 style="@style/user_info.item"
-                android:layout_weight="0.25">
+                android:layout_weight="1">
                 <TextView
                     android:id="@+id/user_info_raid_txt"
                     style="@style/user_info.values"
@@ -80,7 +80,7 @@
                 />
             <LinearLayout
                 style="@style/user_info.item"
-                android:layout_weight="0.5">
+                android:layout_weight="1">
                 <TextView
                     android:id="@+id/user_info_code_txt"
                     style="@style/user_info.values"
@@ -93,7 +93,7 @@
                 />
             <LinearLayout
                 style="@style/user_info.item"
-                android:layout_weight="0.25">
+                android:layout_weight="1">
                 <TextView
                     android:id="@+id/user_info_proect_txt"
                     style="@style/user_info.values"

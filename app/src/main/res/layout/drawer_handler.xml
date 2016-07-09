@@ -8,9 +8,9 @@
                 android:background="@drawable/plasha">
 
     <ImageView
+        android:id="@+id/user_photo_drawer_igm"
         android:layout_width="@dimen/avatar_size"
         android:layout_height="@dimen/avatar_size"
-        android:background="@color/color_accent"
         android:layout_marginTop="@dimen/spacing_normal_16"
      />
     <LinearLayout
