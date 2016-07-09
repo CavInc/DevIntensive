@@ -143,6 +143,16 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         return super.onOptionsItemSelected(item);
     }
 
+    // перехватываем кнопку назад и закрываем NavigationDrawer если
+    // он открыт
+    @Override
+    public void onBackPressed() {
+        Log.d(TAG,"BACK BUTTON");
+        if (mNavigationDrawer.isDrawerOpen(GravityCompat.START)){
+            mNavigationDrawer.closeDrawer(GravityCompat.START);
+        }
+    }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()){
