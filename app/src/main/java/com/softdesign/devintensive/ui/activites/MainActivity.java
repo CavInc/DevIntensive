@@ -6,9 +6,11 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
+import android.provider.MediaStore;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.CoordinatorLayout;
@@ -63,6 +65,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private List<EditText> mUserInfoViews;
 
     private AppBarLayout.LayoutParams mAppBarParams = null;
+
+    private File mPhotoFile = null;
+    private Uri mSelectedImage;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -309,9 +315,23 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     }
 
     private void loadPhotoFromGalerry(){
-
+        Intent takeGalleryIntent = new Intent(Intent.ACTION_PICK,MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        takeGalleryIntent.setType("image/*");
+        startActivityForResult(Intent.createChooser(takeGalleryIntent,getString(R.string.user_profile_chose_message)),ConstantManager.REQUEST_GALLERY_PICTURE);
     }
     private void loadProtoFromCamera(){
+
+        Intent takeCapruteIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        try {
+            mPhotoFile = createImageFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+
+        }
+        if (null != mPhotoFile){
+            takeCapruteIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(mPhotoFile));
+            startActivityForResult(takeCapruteIntent,ConstantManager.REQUEST_CAMERA_PICTURE);
+        }
 
     }
 
