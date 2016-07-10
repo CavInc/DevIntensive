@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.AppBarLayout;
@@ -258,6 +259,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
                 showProfilePlaceholder();
                 lockToolbar();
+                mCollapsingToolbarLayout.setExpandedTitleColor(Color.TRANSPARENT);
             }
         }else {
             mFab.setImageResource(R.drawable.ic_mode_edit_black_24dp); // меняем иконку
@@ -268,6 +270,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
                 hideProfilePlaceholder();
                 unlockToolbar();
+                mCollapsingToolbarLayout.setExpandedTitleColor(getResources().getColor(R.color.white));
 
                 saveUserInfoValue();
 
@@ -341,12 +344,15 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                     public void onClick(DialogInterface dialog, int choiseItem) {
                         switch (choiseItem){
                             case 0:
+                                loadPhotoFromGalerry();
                                 showSnackbar("Загрузить из галерееи");
                                 break;
                             case 1:
+                                loadProtoFromCamera();
                                 showSnackbar("Получит с камеры");
                                 break;
                             case 2:
+                                dialog.cancel();
                                 showSnackbar("Отменить");
                                 break;
                         }
