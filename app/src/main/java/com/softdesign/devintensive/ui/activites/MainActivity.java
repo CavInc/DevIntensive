@@ -1,9 +1,14 @@
 package com.softdesign.devintensive.ui.activites;
 
 
+import android.app.Dialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -11,6 +16,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,6 +24,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.support.v7.widget.Toolbar;
+import android.widget.RelativeLayout;
 
 
 import com.softdesign.devintensive.R;
@@ -40,9 +47,16 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private Toolbar mToolbar;
     private DrawerLayout mNavigationDrawer;
     private FloatingActionButton mFab;
+    private RelativeLayout mProfilePlaceholder;
+    private CollapsingToolbarLayout mCollapsingToolbarLayout;
+
+    private AppBarLayout mAppBarLayout;
+
     private EditText mUserPhone,mUserMail,mUserVk,mUserGit,mUserBio;
 
     private List<EditText> mUserInfoViews;
+
+    private AppBarLayout.LayoutParams mAppBarParams = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +71,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         mNavigationDrawer = (DrawerLayout) findViewById(R.id.navigation_drawer);
         mFab = (FloatingActionButton) findViewById(R.id.fab);
+        mProfilePlaceholder = (RelativeLayout) findViewById(R.id.profile_placeholder);
+        mCollapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
+        mAppBarLayout = (AppBarLayout) findViewById(R.id.appbar_layout);
+
         mUserPhone = (EditText) findViewById(R.id.phone_et);
         mUserMail = (EditText) findViewById(R.id.email_et);
         mUserVk = (EditText) findViewById(R.id.profile_et);
@@ -72,6 +90,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
 
         mFab.setOnClickListener(this);
+        mProfilePlaceholder.setOnClickListener(this);
+
         setupToolbar();
         setupDrower();
         loadUserInfoValue();
@@ -171,6 +191,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
               //  showProgress();
               //  runWihtDelay();
                 break;
+            case R.id.profile_placeholder:
+                showDialog(ConstantManager.LOAD_PROFILE_PHOTO);
+                break;
         }
 
     }
@@ -192,6 +215,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private void setupToolbar(){
         setSupportActionBar(mToolbar);
         ActionBar actionBar = getSupportActionBar();
+
+        mAppBarParams = (AppBarLayout.LayoutParams) mCollapsingToolbarLayout.getLayoutParams();
+
         if (actionBar!=null) {
             actionBar.setHomeAsUpIndicator(R.drawable.ic_menu_black_24dp);
             actionBar.setDisplayHomeAsUpEnabled(true);
@@ -211,6 +237,17 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         });
     }
 
+    /**
+     * Получение результата от другой активити
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+       // super.onActivityResult(requestCode, resultCode, data);
+    }
+
     private void changeEditMode (int mode){
         if (mode==1){
             mFab.setImageResource(R.drawable.ic_done_black_24dp); // меняем иконку
@@ -218,6 +255,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 userValue.setEnabled(true);
                 userValue.setFocusable(true);
                 userValue.setFocusableInTouchMode(true); // фокус по косанию
+
+                showProfilePlaceholder();
+                lockToolbar();
             }
         }else {
             mFab.setImageResource(R.drawable.ic_mode_edit_black_24dp); // меняем иконку
@@ -225,7 +265,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 userValue.setEnabled(false);
                 userValue.setFocusable(false);
                 userValue.setFocusableInTouchMode(false);
+
+                hideProfilePlaceholder();
+                unlockToolbar();
+
                 saveUserInfoValue();
+
             }
         }
 
@@ -253,5 +298,66 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 BitmapFactory.decodeResource(this.getResources(), R.drawable.userphoto))
                 .getRoundedBitmap());
 
+    }
+
+    private void loadPhotoFromGalerry(){
+
+    }
+    private void loadProtoFromCamera(){
+
+    }
+
+    private void hideProfilePlaceholder(){
+        mProfilePlaceholder.setVisibility(View.GONE);
+    }
+
+    private void showProfilePlaceholder(){
+        mProfilePlaceholder.setVisibility(View.VISIBLE);
+    }
+
+    private void lockToolbar(){
+        mAppBarLayout.setExpanded(true,true); // развернуть с анимацией
+        // сбросили флаги
+        mAppBarParams.setScrollFlags(0);
+        // установили параметры
+        mCollapsingToolbarLayout.setLayoutParams(mAppBarParams);
+    }
+
+    private void unlockToolbar(){
+        mAppBarParams.setScrollFlags(AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL| AppBarLayout.LayoutParams.SCROLL_FLAG_EXIT_UNTIL_COLLAPSED);
+        mCollapsingToolbarLayout.setLayoutParams(mAppBarParams);
+    }
+
+    @Override
+    protected Dialog onCreateDialog(int id) {
+        switch (id) {
+            case ConstantManager.LOAD_PROFILE_PHOTO:
+                String[] selecteItems = {getString(R.string.user_profile_dialog_gallery),getString(R.string.user_profile_dialog_camera),getString(R.string.user_profile_dialog_cancel)};
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setTitle(getString(R.string.user_profile_dialog_title));
+                builder.setItems(selecteItems, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int choiseItem) {
+                        switch (choiseItem){
+                            case 0:
+                                showSnackbar("Загрузить из галерееи");
+                                break;
+                            case 1:
+                                showSnackbar("Получит с камеры");
+                                break;
+                            case 2:
+                                showSnackbar("Отменить");
+                                break;
+                        }
+
+                    }
+                });
+                return builder.create();
+
+            default:
+                return null;
+
+        }
     }
 }
