@@ -120,7 +120,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         setupDrower();
         loadUserInfoValue();
 
-        Picasso.with(this).load(mDataManager.getPreferensManager().loadUserPhoto()).into(mProfileImage);
+        Picasso.with(this).load(mDataManager.getPreferensManager().loadUserPhoto())
+                .placeholder(R.drawable.userphoto)
+                .into(mProfileImage);
 
         if (savedInstanceState == null) {
             // актифить прервый раз
