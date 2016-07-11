@@ -9,4 +9,5 @@
     <string name="user_profile_dialog_cancel">Отменить</string>
     <string name="user_profile_dialog_title">Изменить фотографию профиля</string>
     <string name="user_profile_chose_message">выберите фото</string>
+    <string name="login_static">Войти</string>
 </resources>
