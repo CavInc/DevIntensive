@@ -468,7 +468,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
         File image = File.createTempFile(imageFile,"jpg",storageDir);
 
-        // поскать что это такое -!
+        // для A V6
         ContentValues contentValues = new ContentValues();
 
         contentValues.put(MediaStore.Images.Media.DATE_TAKEN, System.currentTimeMillis());
