@@ -186,6 +186,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         Log.d(TAG,"BACK BUTTON");
         if (mNavigationDrawer.isDrawerOpen(GravityCompat.START)){
             mNavigationDrawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
         }
     }
 
