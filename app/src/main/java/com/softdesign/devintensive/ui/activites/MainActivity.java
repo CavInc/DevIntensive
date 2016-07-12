@@ -105,6 +105,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         mUserGit = (EditText) findViewById(R.id.github_et);
         mUserBio = (EditText) findViewById(R.id.about_et);
 
+        ImageView mCallImg = (ImageView) findViewById(R.id.call_img);
+        ImageView mVkImg = (ImageView) findViewById(R.id.vk_img);
+        ImageView mSendMail = (ImageView) findViewById(R.id.send_mail_img);
+        ImageView mGitImg = (ImageView) findViewById(R.id.github_img);
+
+
         mUserInfoViews = new ArrayList<>();
         mUserInfoViews.add(mUserPhone);
         mUserInfoViews.add(mUserMail);
@@ -115,6 +121,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
         mFab.setOnClickListener(this);
         mProfilePlaceholder.setOnClickListener(this);
+        mCallImg.setOnClickListener(this);
+        mVkImg.setOnClickListener(this);
+        mSendMail.setOnClickListener(this);
+        mGitImg.setOnClickListener(this);
 
         setupToolbar();
         setupDrower();
@@ -222,6 +232,17 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 break;
             case R.id.profile_placeholder:
                 showDialog(ConstantManager.LOAD_PROFILE_PHOTO);
+                break;
+            case R.id.call_img:
+                openCall(String.valueOf(mUserPhone.getText()));
+                break;
+            case R.id.vk_img:
+                openBrowser(String.valueOf(mUserVk.getText()));
+                break;
+            case R.id.github_img:
+                openBrowser(String.valueOf(mUserGit.getText()));
+                break;
+            case R.id.send_mail_img:
                 break;
         }
 
@@ -447,7 +468,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                                 break;
                             case 2:
                                 dialog.cancel();
-                              //  showSnackbar("Отменить");
                                 break;
                         }
 
@@ -484,6 +504,33 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private void openApplicationSetting(){
         Intent appSettingIntent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS,Uri.parse("package:"+getPackageName()));
         startActivityForResult(appSettingIntent,ConstantManager.PERMISOPN_REQUEST_SETTING_CODE);
+
+    }
+
+    /**
+     * Звоним по указанному телефону
+     * @param data - номер телефона
+     */
+    private void openCall(String data){
+        Intent callIntent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + data));
+        startActivity(callIntent);
+    }
+
+    /**
+     * Открывает ссылку в браузере
+     * @param data - ссылка на страницу
+     */
+    private void openBrowser(String data){
+        Uri address = Uri.parse("http://"+data);
+        Intent openlinkIntent = new Intent(Intent.ACTION_VIEW, address);
+        startActivity(openlinkIntent);
+    }
+
+    private void sendMail(String data){
+        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+        shareIntent.setType("text/plain");
+        shareIntent.putExtra(Intent.EXTRA_SUBJECT, "Content subject");
+        shareIntent.putExtra(Intent.EXTRA_EMAIL,data); // ? тело письма или же кому ?
 
     }
 }
