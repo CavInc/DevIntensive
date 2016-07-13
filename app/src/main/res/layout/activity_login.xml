@@ -8,13 +8,16 @@
         android:orientation="vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal">
+        android:layout_gravity="center_horizontal|center_vertical"
+        android:padding="55dp"
+        android:background="@color/color_accent">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/login_static"
-            android:id="@+id/textView6"/>
+            android:id="@+id/textView6"
+            android:layout_marginBottom="32dp"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -41,16 +44,18 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="New Button"
+            android:text="ВОЙТИ"
             android:id="@+id/button"
-            android:layout_gravity="center_horizontal"/>
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="32dp"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="New Text"
             android:id="@+id/textView5"
-            android:layout_gravity="center_horizontal"/>
+            android:layout_gravity="center_horizontal"
+            android:background="#4455FF"/>
     </LinearLayout>
 
 </LinearLayout>
