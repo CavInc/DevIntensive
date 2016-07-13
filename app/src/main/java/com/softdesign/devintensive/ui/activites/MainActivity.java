@@ -243,6 +243,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 openBrowser(String.valueOf(mUserGit.getText()));
                 break;
             case R.id.send_mail_img:
+                sendMail(String.valueOf(mUserMail.getText()));
                 break;
         }
 
@@ -331,6 +332,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 lockToolbar();
                 mCollapsingToolbarLayout.setExpandedTitleColor(Color.TRANSPARENT);
             }
+            mUserPhone.requestFocus(); // установка фокуса ?
         }else {
             mFab.setImageResource(R.drawable.ic_mode_edit_black_24dp); // меняем иконку
             for (EditText userValue:mUserInfoViews){
@@ -349,6 +351,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     }
 
+    /**
+     * читаем данные пользотвателя
+     */
     private void loadUserInfoValue(){
         List<String> userData = mDataManager.getPreferensManager().loadUserProfileData();
         for (int i=0;i<userData.size();i++){
@@ -373,6 +378,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     }
 
+
+    /**
+     *  Загрузка картинки из галрееи
+     */
     private void loadPhotoFromGalerry(){
         Intent takeGalleryIntent = new Intent(Intent.ACTION_PICK,MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         takeGalleryIntent.setType("image/*");
@@ -531,6 +540,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         shareIntent.setType("text/plain");
         shareIntent.putExtra(Intent.EXTRA_SUBJECT, "Content subject");
         shareIntent.putExtra(Intent.EXTRA_EMAIL,data); // ? тело письма или же кому ?
+        startActivity(Intent.createChooser(shareIntent, getResources().getText((R.string.send_to))));
 
     }
 }
