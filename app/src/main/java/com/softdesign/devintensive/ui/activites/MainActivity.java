@@ -535,12 +535,24 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         startActivity(openlinkIntent);
     }
 
+    /**
+     * Оправить почту
+     * @param data
+     */
     private void sendMail(String data){
-        Intent shareIntent = new Intent(Intent.ACTION_SEND);
-        shareIntent.setType("text/plain");
+        Intent shareIntent = new Intent(Intent.ACTION_SENDTO);
+        shareIntent.setType("message/rfc822");
+        shareIntent.setData(Uri.parse("mailto:"));
+        shareIntent.putExtra(Intent.EXTRA_EMAIL,data);
         shareIntent.putExtra(Intent.EXTRA_SUBJECT, "Content subject");
-        shareIntent.putExtra(Intent.EXTRA_EMAIL,data); // ? тело письма или же кому ?
+        shareIntent.putExtra(Intent.EXTRA_TEXT,"Test send" );
+        //shareIntent.putExtra(Intent.EXTRA_EMAIL,data); // ? если не указываеть в коснтрукторе то указываем здесь
         startActivity(Intent.createChooser(shareIntent, getResources().getText((R.string.send_to))));
+        /*
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(intent);
+        }
+        */
 
     }
 }
