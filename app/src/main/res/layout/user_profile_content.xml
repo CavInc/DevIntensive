@@ -94,7 +94,7 @@
                         android:textColor="@color/black"
                         android:textColorHint="@color/gray"
                         android:focusable="false"
-                        android:hint="Мобильный телефон"
+                        android:hint="@string/mobile_hint_txt"
                         android:fontFamily="sans-serif-condensed"/>
                 </android.support.design.widget.TextInputLayout>
             </LinearLayout>
@@ -185,7 +185,6 @@
                         android:id="@+id/profile_et"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="textEmailAddress"
                         android:text="http://vk.com/id64670801"
                         android:enabled="false"
                         android:textColor="@color/black"
@@ -235,7 +234,6 @@
                         android:id="@+id/github_et"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="textEmailAddress"
                         android:text="https://github.com/CavInc/DevIntensive"
                         android:enabled="false"
                         android:textColor="@color/black"
@@ -282,13 +280,13 @@
                         android:id="@+id/about_et"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="textEmailAddress"
                         android:text="Чего то лень писать а еще тут разная фигня"
                         android:enabled="false"
                         android:textColor="@color/black"
                         android:textColorHint="@color/gray"
                         android:focusable="false"
-                        android:hint="О себе"
+                        android:hint="@string/user_profile_about_txt"
+                        android:inputType="textMultiLine"
                         android:fontFamily="sans-serif-condensed"/>
                 </android.support.design.widget.TextInputLayout>
             </LinearLayout>

@@ -11,4 +11,8 @@
     <string name="user_profile_chose_message">выберите фото</string>
     <string name="login_static">Войти</string>
     <string name="send_to">Выберети через что отправить</string>
+    <string name="no_send_mail_message">Нет возможности отправить почту</string>
+    <string name="solve_txt">Разрешить</string>
+    <string name="user_profile_about_txt">О себе</string>
+    <string name="mobile_hint_txt">Мобильный телефон</string>
 </resources>

@@ -409,7 +409,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                     android.Manifest.permission.WRITE_EXTERNAL_STORAGE
             },ConstantManager.CAMERA_REQUEST_PERMISION_CODE);
             Snackbar.make(mCoordinatorLayout,"Для корректной работы необходимо дать требуемые разрешения ",Snackbar.LENGTH_LONG).
-                    setAction("Разрешить", new View.OnClickListener() {
+                    setAction(R.string.solve_txt, new View.OnClickListener() {
 
                         @Override
                         public void onClick(View view) {
@@ -546,13 +546,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         shareIntent.putExtra(Intent.EXTRA_EMAIL,data);
         shareIntent.putExtra(Intent.EXTRA_SUBJECT, "Content subject");
         shareIntent.putExtra(Intent.EXTRA_TEXT,"Test send" );
-        //shareIntent.putExtra(Intent.EXTRA_EMAIL,data); // ? если не указываеть в коснтрукторе то указываем здесь
-        startActivity(Intent.createChooser(shareIntent, getResources().getText((R.string.send_to))));
-        /*
-        if (intent.resolveActivity(getPackageManager()) != null) {
-            startActivity(intent);
+
+        if (shareIntent.resolveActivity(getPackageManager()) != null) {
+            startActivity(Intent.createChooser(shareIntent, getResources().getText((R.string.send_to))));
+        }else {
+            showSnackbar(getString(R.string.no_send_mail_message));
         }
-        */
 
     }
 }
