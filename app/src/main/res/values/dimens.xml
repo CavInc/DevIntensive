@@ -20,12 +20,17 @@
 
     <!-- ND -->
     <dimen name="avatar_size">64dp</dimen>
-    <dimen name="font_size_14">14sp</dimen>
+
 
     <dimen name="profile_image_size">256dp</dimen>
+    <dimen name="user_info_size">112dp</dimen>
 
     <dimen name="fab_right_space">8dp</dimen>
     <dimen name="plaseholder_photo_size_90">90dp</dimen>
+
+    <!-- font size -->
+    <dimen name="font_size_20">20sp</dimen>
+    <dimen name="font_size_14">14sp</dimen>
 
     <!-- logo size -->
 
