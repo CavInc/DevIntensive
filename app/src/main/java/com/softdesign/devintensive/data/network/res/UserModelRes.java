@@ -17,6 +17,10 @@ public class UserModelRes {
     @Expose
     private Data data;
 
+    public Data getData() {
+        return data;
+    }
+
     public class User {
         @SerializedName("_id")
         @Expose
@@ -51,6 +55,14 @@ public class UserModelRes {
         @SerializedName("updated")
         @Expose
         private String updated;
+
+        public String getId() {
+            return id;
+        }
+
+        public ProfileValues getProfileValues() {
+            return profileValues;
+        }
     }
 
     public class Repositories{
@@ -104,6 +116,17 @@ public class UserModelRes {
         @Expose
         private String updated;
 
+        public int getProjects() {
+            return projects;
+        }
+
+        public int getLineCodes() {
+            return lineCodes;
+        }
+
+        public int getRaiting() {
+            return rait;
+        }
     }
 
     public class Data {
