@@ -20,4 +20,6 @@ public interface ConstantManager {
 
     int PERMISOPN_REQUEST_SETTING_CODE = 101;
     int CAMERA_REQUEST_PERMISION_CODE = 102;
+    String AUTH_TOKEN = "AUTH_TOKEN";
+    String USER_ID_KEY = "USER_ID_KEY";
 }

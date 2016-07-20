@@ -95,6 +95,10 @@
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/jniLibs" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/manifests" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/pre-dexed" />
+<<<<<<< .merge_file_gbDWBq
+=======
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/reload-dex" />
+>>>>>>> .merge_file_oefvBn
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/res" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/restart-dex" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/rs" />
@@ -117,8 +121,21 @@
     <orderEntry type="library" exported="" name="animated-vector-drawable-23.3.0" level="project" />
     <orderEntry type="library" exported="" name="retrofit-2.1.0" level="project" />
     <orderEntry type="library" exported="" name="converter-gson-2.1.0" level="project" />
+<<<<<<< .merge_file_gbDWBq
     <orderEntry type="library" exported="" name="logging-interceptor-3.4.1" level="project" />
     <orderEntry type="library" exported="" name="support-v4-23.3.0" level="project" />
     <orderEntry type="library" exported="" name="recyclerview-v7-23.3.0" level="project" />
+=======
+    <orderEntry type="library" exported="" name="design-23.3.0" level="project" />
+    <orderEntry type="library" exported="" name="cardview-v7-23.3.0" level="project" />
+    <orderEntry type="library" exported="" name="recyclerview-v7-23.3.0" level="project" />
+    <orderEntry type="library" exported="" name="okhttp-3.4.1" level="project" />
+    <orderEntry type="library" exported="" name="support-v4-23.3.0" level="project" />
+    <orderEntry type="library" exported="" name="logging-interceptor-3.4.1" level="project" />
+    <orderEntry type="library" exported="" name="support-annotations-23.3.0" level="project" />
+    <orderEntry type="library" exported="" name="support-vector-drawable-23.3.0" level="project" />
+    <orderEntry type="library" exported="" name="animated-vector-drawable-23.3.0" level="project" />
+    <orderEntry type="library" exported="" name="appcompat-v7-23.3.0" level="project" />
+>>>>>>> .merge_file_oefvBn
   </component>
 </module>
