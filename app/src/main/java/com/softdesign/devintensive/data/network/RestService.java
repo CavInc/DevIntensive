@@ -11,12 +11,6 @@ import retrofit2.http.Headers;
 import retrofit2.http.POST;
 
 public interface RestService {
-    // статические заголовки
-    @Headers({
-            "Custom-Header: my test"
-    })
-
-    // POST запрос и динамический заголовок
     @POST("login")
     Call<UserModelRes> loginUser(@Body UserLoginReq req);
 }
