@@ -17,6 +17,8 @@ import com.softdesign.devintensive.data.network.req.UserLoginReq;
 import com.softdesign.devintensive.data.network.res.UserModelRes;
 import com.softdesign.devintensive.utils.NetworkStatusChecker;
 
+import java.util.Date;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -72,23 +74,24 @@ public class AuthActivity extends BaseActivity implements View.OnClickListener {
         startActivity(rememberIdent);
 
     }
-    private void loginSuccess(Response<UserModelRes> response){
-        showSnackbar("ВХОД "+response.body().getData().getToken());
-        mDatamanager.getPreferensManager().saveAuthToken(response.body().getData().getToken());
-        mDatamanager.getPreferensManager().sateUserId(response.body().getData().getUser().getId());
-
+    private void loginSuccess(UserModelRes userModel){
+        showSnackbar("ВХОД "+userModel.getData().getToken());
+        mDatamanager.getPreferensManager().saveAuthToken(userModel.getData().getToken());
+        mDatamanager.getPreferensManager().saveUserId(userModel.getData().getUser().getId());
+        saveUserValues(userModel);
         Intent loginIntent = new Intent(this,MainActivity.class);
         startActivity(loginIntent);
     }
 
     private void signIn(){
         if (NetworkStatusChecker.isNetworkAvailable(this)) {
-            Call<UserModelRes> call = mDatamanager.loginUser(new UserLoginReq(mLogin.getText().toString(), mPassword.getText().toString()));
+            Call<UserModelRes> call = mDatamanager.loginUser(new Date().toString()
+                    ,new UserLoginReq(mLogin.getText().toString(), mPassword.getText().toString()));
             call.enqueue(new Callback<UserModelRes>() {
                 @Override
                 public void onResponse(Call<UserModelRes> call, Response<UserModelRes> response) {
                     if (response.code() == 200) {
-                        loginSuccess(response);
+                        loginSuccess(response.body());
                     } else if (response.code() == 404) {
                         showSnackbar("Неверный логи или пароль");
                     } else {
@@ -104,6 +107,15 @@ public class AuthActivity extends BaseActivity implements View.OnClickListener {
         }else {
             showSnackbar("Сеть не доступна");
         }
+
+    }
+    private void saveUserValues(UserModelRes userModel){
+        int[] userValues = {
+                userModel.getData().getUser().getProfileValues().getRaiting(),
+                userModel.getData().getUser().getProfileValues().getLineCodes(),
+                userModel.getData().getUser().getProfileValues().getProjects()
+        };
+        mDatamanager.getPreferensManager().saveUserProfileValues(userValues);
 
     }
 }
