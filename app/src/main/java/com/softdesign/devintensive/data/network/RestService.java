@@ -18,6 +18,5 @@ public interface RestService {
 
     // POST запрос и динамический заголовок
     @POST("login")
-    Call<UserModelRes> loginUser(@Header("Last-Modifed") String lastModifed,
-                                 @Body UserLoginReq req);
+    Call<UserModelRes> loginUser(@Body UserLoginReq req);
 }
