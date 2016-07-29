@@ -94,7 +94,11 @@
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/instant-run-support" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/jniLibs" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/manifests" />
+<<<<<<< HEAD
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/reload-dex" />
+=======
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/pre-dexed" />
+>>>>>>> 033771f6d6a4581ecfc59ff75f38857755229b97
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/res" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/restart-dex" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/rs" />
