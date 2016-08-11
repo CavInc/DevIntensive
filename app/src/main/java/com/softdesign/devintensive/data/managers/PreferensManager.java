@@ -1,6 +1,7 @@
 package com.softdesign.devintensive.data.managers;
 
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 
@@ -15,6 +16,12 @@ public class PreferensManager {
 
     private static final String[] USER_FIELD = {ConstantManager.USER_PHONE_KEY,ConstantManager.USER_MAIL_KEY,
     ConstantManager.USER_VK_KEY,ConstantManager.USER_GIT_KEY,ConstantManager.USER_BIO_KEY};
+
+    private static final String[] USER_VALUES = {
+            ConstantManager.USER_RATING_VALUES,
+            ConstantManager.USER_CODE_LINES_VALUES,
+            ConstantManager.USER_PROJECT_VALUES
+    };
 
     public PreferensManager(){
         this.mSharedPreferences = DevIntensiveApplication.getSharedPreferences();
@@ -43,6 +50,23 @@ public class PreferensManager {
         editor.putString(ConstantManager.USER_PHOTO_KEY,uri.toString());
         editor.apply();
     }
+
+    public List<String> loadUserProfileValues(){
+        List<String> userValues = new ArrayList<>();
+        userValues.add(mSharedPreferences.getString(ConstantManager.USER_RATING_VALUES,"0"));
+        userValues.add(mSharedPreferences.getString(ConstantManager.USER_CODE_LINES_VALUES,"0"));
+        userValues.add(mSharedPreferences.getString(ConstantManager.USER_PROJECT_VALUES,"0"));
+        return userValues;
+    }
+
+    public void saveUserProfileValues(int[] userValues){
+        SharedPreferences.Editor editor = mSharedPreferences.edit();
+        for (int i=0;i<USER_VALUES.length;i++) {
+            editor.putString(USER_VALUES[i],Integer.toString(userValues[i]));
+        }
+        editor.apply();
+    }
+
     public Uri loadUserPhoto(){
         return Uri.parse(mSharedPreferences.getString(ConstantManager.USER_PHOTO_KEY,
                 "android.resource://com.softdesign.devintensive/drawable/userphoto"));
@@ -58,7 +82,7 @@ public class PreferensManager {
         return mSharedPreferences.getString(ConstantManager.AUTH_TOKEN,"null");
     }
 
-    public void sateUserId(String userId){
+    public void saveUserId(String userId){
         SharedPreferences.Editor editor = mSharedPreferences.edit();
         editor.putString(ConstantManager.USER_ID_KEY,userId);
         editor.apply();

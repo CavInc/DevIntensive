@@ -1,7 +1,6 @@
 package com.softdesign.devintensive.ui.activites;
 
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.ContentValues;
 import android.content.DialogInterface;
@@ -13,7 +12,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
-import android.provider.ContactsContract;
 import android.provider.MediaStore;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
@@ -30,13 +28,13 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.support.v7.widget.Toolbar;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 
 import com.softdesign.devintensive.R;
@@ -51,7 +49,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.jar.Manifest;
 
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
@@ -72,6 +69,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private ImageView mProfileImage;
 
     private EditText mUserPhone,mUserMail,mUserVk,mUserGit,mUserBio;
+
+    private TextView mUserValueRating,mUserValueProject,mUserValueCodeLines;
+    private List<TextView> mUserValuesViews;
 
     private List<EditText> mUserInfoViews;
 
@@ -105,6 +105,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         mUserGit = (EditText) findViewById(R.id.github_et);
         mUserBio = (EditText) findViewById(R.id.about_et);
 
+        mUserValueRating = (TextView) findViewById(R.id.user_info_raid_txt);
+        mUserValueCodeLines = (TextView) findViewById(R.id.user_info_code_txt);
+        mUserValueProject = (TextView) findViewById(R.id.user_info_proect_txt);
+
         ImageView mCallImg = (ImageView) findViewById(R.id.call_img);
         ImageView mVkImg = (ImageView) findViewById(R.id.vk_img);
         ImageView mSendMail = (ImageView) findViewById(R.id.send_mail_img);
@@ -118,6 +122,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         mUserInfoViews.add(mUserGit);
         mUserInfoViews.add(mUserBio);
 
+        mUserValuesViews = new ArrayList<>();
+        mUserValuesViews.add(mUserValueRating);
+        mUserValuesViews.add(mUserValueCodeLines);
+        mUserValuesViews.add(mUserValueProject);
+
 
         mFab.setOnClickListener(this);
         mProfilePlaceholder.setOnClickListener(this);
@@ -128,7 +137,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
         setupToolbar();
         setupDrower();
-        loadUserInfoValue();
+        initUserFields();
+        initUserInfoValue();
 
         Picasso.with(this).load(mDataManager.getPreferensManager().loadUserPhoto())
                 .placeholder(R.drawable.userphoto)
@@ -174,7 +184,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     protected void onPause() {
         super.onPause();
         Log.d(TAG, "Pause");
-        saveUserInfoValue();
+        saveUserFields();
     }
 
     @Override
@@ -344,7 +354,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 unlockToolbar();
                 mCollapsingToolbarLayout.setExpandedTitleColor(getResources().getColor(R.color.white));
 
-                saveUserInfoValue();
+                saveUserFields();
 
             }
         }
@@ -354,19 +364,27 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     /**
      * читаем данные пользотвателя
      */
-    private void loadUserInfoValue(){
+    private void initUserFields(){
         List<String> userData = mDataManager.getPreferensManager().loadUserProfileData();
         for (int i=0;i<userData.size();i++){
             mUserInfoViews.get(i).setText(userData.get(i));
         }
     }
 
-    private void saveUserInfoValue(){
+    private void saveUserFields(){
         List<String> userData = new ArrayList<>();
         for (EditText userFieldView : mUserInfoViews) {
             userData.add(userFieldView.getText().toString());
         }
         mDataManager.getPreferensManager().saveUserProfileData(userData);
+    }
+
+    private void initUserInfoValue(){
+        List<String> userData = mDataManager.getPreferensManager().loadUserProfileValues();
+        for (int i=0;i<userData.size();i++){
+            mUserValuesViews.get(i).setText(userData.get(i).toString());
+        }
+
     }
 
     private void setNavigationDrawerIcon(){
@@ -375,7 +393,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         imageView.setImageBitmap(new RoundedBitmap(
                 BitmapFactory.decodeResource(this.getResources(), R.drawable.userphoto))
                 .getRoundedBitmap());
-
     }
 
 
