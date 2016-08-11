@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.support.design.widget.CoordinatorLayout;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -86,10 +87,13 @@ public class AuthActivity extends BaseActivity implements View.OnClickListener {
     private void signIn(){
         if (NetworkStatusChecker.isNetworkAvailable(this)) {
             Call<UserModelRes> call = mDatamanager.loginUser(new UserLoginReq(mLogin.getText().toString(), mPassword.getText().toString()));
+            Log.d("X-788","YOOOOOO");
             call.enqueue(new Callback<UserModelRes>() {
                 @Override
                 public void onResponse(Call<UserModelRes> call, Response<UserModelRes> response) {
+                    Log.d("X-12",response.message());
                     if (response.code() == 200) {
+                        showSnackbar(" - 200 OK  -");
                         loginSuccess(response.body());
                     } else if (response.code() == 404) {
                         showSnackbar("Неверный логи или пароль");
@@ -100,6 +104,7 @@ public class AuthActivity extends BaseActivity implements View.OnClickListener {
 
                 @Override
                 public void onFailure(Call<UserModelRes> call, Throwable t) {
+                    Log.d("X-788","FAILURE "+t.getLocalizedMessage());
 
                 }
             });
