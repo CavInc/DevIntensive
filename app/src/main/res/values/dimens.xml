@@ -30,6 +30,7 @@
 
     <!-- font size -->
     <dimen name="font_size_20">20sp</dimen>
+    <dimen name="font_large_24">24sp</dimen>
     <dimen name="font_size_14">14sp</dimen>
 
     <!-- logo size -->
