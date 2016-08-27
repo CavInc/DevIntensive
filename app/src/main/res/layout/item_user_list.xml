@@ -16,6 +16,7 @@
             android:layout_height="wrap_content">
 
             <com.softdesign.devintensive.ui.viewes.AspectRatioImageView
+                android:id="@+id/user_photo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:src="@drawable/userphoto"
@@ -34,8 +35,9 @@
                 android:paddingRight="@dimen/spacing_normal_16"
                 android:paddingBottom="@dimen/spacing_medial_24"
                 android:layout_gravity="bottom"/>
+        </FrameLayout>
 
-            <LinearLayout
+        <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/size_small_large_72"
                 android:orientation="horizontal"
@@ -47,6 +49,7 @@
                     android:gravity="center_horizontal"
                     android:layout_weight="0.25">
                     <TextView
+                        android:id="@+id/rating_txt"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="0"
@@ -68,6 +71,7 @@
                     android:gravity="center_horizontal"
                     android:layout_weight="0.5">
                     <TextView
+                        android:id="@+id/code_lines_txt"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="0"
@@ -89,6 +93,7 @@
                     android:gravity="center_horizontal"
                     android:layout_weight="0.25">
                     <TextView
+                        android:id="@+id/project_txt"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="0"
@@ -98,14 +103,44 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Количество строк кода"
+                        android:text="Проектов"
                         android:fontFamily="@string/ff_regular"
                         android:textSize="@dimen/font_size_14"
                         android:textColor="@color/black"/>
                 </LinearLayout>
 
-            </LinearLayout>
-        </FrameLayout>
+        </LinearLayout>
+        <TextView
+            android:id="@+id/bio_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/gray_light"
+            android:text="@string/profile.bio.dummy"
+            android:maxLines="3"
+            android:paddingRight="@dimen/spacing_normal_16"
+            android:paddingLeft="@dimen/spacing_normal_16"
+            android:fontFamily="@string/ff_regular"
+            android:textSize="@dimen/font_size_14"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray_light"
+            android:layout_marginTop="@dimen/spacing_normal_16"
+            android:layout_marginBottom="@dimen/spacing_small_8"
+            />
+
+        <Button
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:id="@+id/more_info_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Просмотр"
+            android:textColor="@color/color_accent"
+            android:paddingRight="@dimen/spacing_normal_16"
+            android:paddingLeft="@dimen/spacing_normal_16"/>
+
+
+
     </LinearLayout>
 
 </android.support.v7.widget.CardView>
