@@ -12,12 +12,16 @@ import com.softdesign.devintensive.data.network.res.UserListRes;
 import com.softdesign.devintensive.ui.viewes.AspectRatioImageView;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UserViewHolder> {
 
     Context mContext;
-    ArrayList<UserListRes.UserData> mUsers;
+    List<UserListRes.UserData> mUsers;
+
+    public UsersAdapter(List<UserListRes.UserData> users) {
+        mUsers = users;
+    }
 
     @Override
     public UsersAdapter.UserViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -34,11 +38,22 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UserViewHold
                 .placeholder(mContext.getResources().getDrawable(R.drawable.user_bg))
                 .error(mContext.getResources().getDrawable(R.drawable.user_bg))
                 .into(holder.userPhoto);
+
+        holder.mFullname.setText(String.valueOf(user.getFullName()));
+        holder.mRationg.setText(user.getProfileValues().getRaiting());
+        holder.mCodeLines.setText(user.getProfileValues().getLineCodes());
+        holder.mProject.setText(user.getProfileValues().getProjects());
+        if (user.getPublicInfo().getBio()==null || user.getPublicInfo().getBio().isEmpty()){
+            holder.mBio.setVisibility(View.GONE);
+        }else {
+            holder.mBio.setVisibility(View.VISIBLE);
+            holder.mBio.setText(user.getPublicInfo().getBio());
+        }
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return mUsers.size();
     }
 
     public static class UserViewHolder extends RecyclerView.ViewHolder {

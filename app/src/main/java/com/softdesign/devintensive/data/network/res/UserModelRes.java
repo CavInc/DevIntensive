@@ -97,10 +97,13 @@ public class UserModelRes {
         @SerializedName("updated")
         @Expose
         private String updated;
-        private int mPhoto;
 
-        public int getPhoto() {
-            return mPhoto;
+        public String getPhoto() {
+            return photo;
+        }
+
+        public String getBio() {
+            return bio;
         }
     }
 
