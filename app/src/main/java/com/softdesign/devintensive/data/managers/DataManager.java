@@ -1,14 +1,31 @@
 package com.softdesign.devintensive.data.managers;
 
-import org.xml.sax.DTDHandler;
+import android.content.Context;
+
+import com.softdesign.devintensive.data.network.RestService;
+
+import com.softdesign.devintensive.data.network.ServiceGenerator;
+import com.softdesign.devintensive.data.network.req.UserLoginReq;
+import com.softdesign.devintensive.data.network.res.UserListRes;
+import com.softdesign.devintensive.data.network.res.UserModelRes;
+import com.softdesign.devintensive.utils.DevIntensiveApplication;
+
+import retrofit2.Call;
+
 
 public class DataManager {
     private static DataManager INSTANCE = null;
 
+    private Context mContext;
     private PreferensManager mPreferensManager;
+    private RestService mRestService;
+
+
 
     public DataManager(){
         this.mPreferensManager = new PreferensManager();
+        this.mContext = DevIntensiveApplication.getContext();
+        this.mRestService = ServiceGenerator.createService(RestService.class);
     }
 
 
@@ -22,4 +39,20 @@ public class DataManager {
     public PreferensManager getPreferensManager() {
         return mPreferensManager;
     }
+
+    public Context getContext() {
+        return mContext;
+    }
+
+    // region ====== network =================
+    public Call<UserModelRes> loginUser (UserLoginReq userLoginReq){
+        return mRestService.loginUser(userLoginReq);
+    }
+    public Call<UserListRes> getUserList(){
+        return mRestService.getUserList();
+    }
+    // endregion
+
+    //region ======== databse ==============
+    //endregion
 }
