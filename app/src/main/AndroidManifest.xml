@@ -35,6 +35,7 @@
             -->
         </activity>
         <activity android:name=".ui.activites.AuthActivity">
+
             <!--
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -49,6 +50,8 @@
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+        </activity>
+        <activity android:name=".ui.activites.ProfileUserActivity">
         </activity>
     </application>
 

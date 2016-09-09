@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.softdesign.devintensive.R;
@@ -16,18 +17,21 @@ import java.util.List;
 
 public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UserViewHolder> {
 
-    Context mContext;
-    List<UserListRes.UserData> mUsers;
+    private Context mContext;
+    private List<UserListRes.UserData> mUsers;
 
-    public UsersAdapter(List<UserListRes.UserData> users) {
+    private UserViewHolder.CustomClickListener mCustomClickListener;
+
+    public UsersAdapter(List<UserListRes.UserData> users,UserViewHolder.CustomClickListener customClickListener ) {
         mUsers = users;
+        mCustomClickListener = customClickListener;
     }
 
     @Override
     public UsersAdapter.UserViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         mContext = parent.getContext();
         View convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_user_list,parent,false);
-        return new UserViewHolder(convertView);
+        return new UserViewHolder(convertView,mCustomClickListener);
     }
 
     @Override
@@ -56,18 +60,38 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UserViewHold
         return mUsers.size();
     }
 
-    public static class UserViewHolder extends RecyclerView.ViewHolder {
+    public static class UserViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         protected AspectRatioImageView userPhoto;
         protected TextView mFullname,mRationg,mCodeLines,mProject,mBio;
+        protected Button mShowMore;
 
-        public UserViewHolder(View itemView) {
+        private CustomClickListener mListener;
+
+        public UserViewHolder(View itemView,CustomClickListener customClickListener) {
             super(itemView);
+            this.mListener = customClickListener;
             userPhoto = (AspectRatioImageView) itemView.findViewById(R.id.user_photo);
             mFullname = (TextView) itemView.findViewById(R.id.user_full_name);
             mRationg = (TextView) itemView.findViewById(R.id.rating_txt);
             mCodeLines = (TextView) itemView.findViewById(R.id.code_lines_txt);
             mProject = (TextView) itemView.findViewById(R.id.project_txt);
             mBio = (TextView) itemView.findViewById(R.id.bio_text);
+            mShowMore = (Button) itemView.findViewById(R.id.more_info_btn);
+
+            mShowMore.setOnClickListener(this);
+
+        }
+
+        @Override
+        public void onClick(View v) {
+            if (mListener!=null) {
+                mListener.onUserItemClickListener(getAdapterPosition());
+            }
+
+        }
+
+        public interface CustomClickListener {
+            void onUserItemClickListener(int adapterPosition) ;
         }
     }
 }
