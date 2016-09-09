@@ -240,6 +240,7 @@
                         android:textColorHint="@color/gray"
                         android:focusable="false"
                         android:hint="Репозиторий"
+                        android:inputType="textUri"
                         android:fontFamily="sans-serif-condensed"/>
                 </android.support.design.widget.TextInputLayout>
             </LinearLayout>

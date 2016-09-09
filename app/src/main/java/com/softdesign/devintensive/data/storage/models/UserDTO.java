@@ -84,4 +84,32 @@ public class UserDTO implements Parcelable {
             return new UserDTO[size];
         }
     };
+
+    public String getPhoto() {
+        return mPhoto;
+    }
+
+    public String getFullName() {
+        return mFullName;
+    }
+
+    public String getRating() {
+        return mRating;
+    }
+
+    public String getCodeLines() {
+        return mCodeLines;
+    }
+
+    public String getProjects() {
+        return mProjects;
+    }
+
+    public String getBio() {
+        return mBio;
+    }
+
+    public List<String> getRepositories() {
+        return mRepositories;
+    }
 }
