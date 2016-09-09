@@ -32,7 +32,8 @@
 
         <android.support.v7.widget.Toolbar
                     android:id="@+id/toolbar"
-                    android:theme="@style/AppTheme.PopupOverlay"
+                    app:theme="@style/ToolBarStyle"
+                    app:popupTheme="@style/AppTheme.PopupOverlay"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
                     android:titleTextColor="@color/white"
@@ -46,9 +47,10 @@
         android:layout_height="@dimen/user_info_size"
         android:background="@color/gray"
         android:gravity="center"
-        android:orientation="horizontal"
-        app:behavior_min_height="@dimen/size_medium_56"
-        app:layout_behavior=".ui.behaviors.UserInfoBehavior">
+        android:orientation="horizontal">
+      <!--  app:behavior_min_height="@dimen/size_medium_56"
+        app:layout_behavior=".ui.behaviors.UserInfoBehavior" -->
+
 
         <LinearLayout
             style="@style/user_info.item"
