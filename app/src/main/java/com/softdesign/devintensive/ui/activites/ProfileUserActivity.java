@@ -2,6 +2,10 @@ package com.softdesign.devintensive.ui.activites;
 
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -23,6 +27,7 @@ public class ProfileUserActivity extends BaseActivity {
     private ImageView mProfileImage;
     private EditText mUserBio;
     private TextView mUserRating,mUserCodeLines,mUserProject;
+    private CoordinatorLayout mCoordinatorLayout;
 
     private ListView mRepoListView;
 
@@ -40,6 +45,7 @@ public class ProfileUserActivity extends BaseActivity {
         mUserRating = (TextView) findViewById(R.id.user_info_raid_txt);
         mUserProject = (TextView) findViewById(R.id.user_info_proect_txt);
         mCollapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
+        mCoordinatorLayout = (CoordinatorLayout) findViewById(R.id.main_coordinator_container);
 
         mRepoListView = (ListView) findViewById(R.id.repositories_list);
 
@@ -64,6 +70,14 @@ public class ProfileUserActivity extends BaseActivity {
         final List<String> repositories = userDTO.getRepositories();
         final RepositoriesAdapter repositoriesAdapter = new RepositoriesAdapter(this,repositories);
         mRepoListView.setAdapter(repositoriesAdapter);
+
+        mRepoListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                Snackbar.make(mCollapsingToolbarLayout,"Репозиторий "+repositories.get(position),Snackbar.LENGTH_LONG).show();
+                //TODO Реализовать простомт репозитория через Intent.ACTION_VIEW 
+            }
+        });
 
         mUserBio.setText(userDTO.getBio());
         mUserRating.setText(userDTO.getRating());
