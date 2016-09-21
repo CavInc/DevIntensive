@@ -75,7 +75,7 @@ public class ProfileUserActivity extends BaseActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                 Snackbar.make(mCollapsingToolbarLayout,"Репозиторий "+repositories.get(position),Snackbar.LENGTH_LONG).show();
-                //TODO Реализовать простомт репозитория через Intent.ACTION_VIEW 
+                //TODO Реализовать простомт репозитория через Intent.ACTION_VIEW
             }
         });
 
