@@ -2,6 +2,7 @@ package com.softdesign.devintensive.ui.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,9 +45,9 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UserViewHold
                 .into(holder.userPhoto);
 
         holder.mFullname.setText(String.valueOf(user.getFullName()));
-        holder.mRationg.setText(user.getProfileValues().getRaiting());
-        holder.mCodeLines.setText(user.getProfileValues().getLineCodes());
-        holder.mProject.setText(user.getProfileValues().getProjects());
+        holder.mRationg.setText(String.valueOf(user.getProfileValues().getRaiting()));
+        holder.mCodeLines.setText(String.valueOf(user.getProfileValues().getLineCodes()));
+        holder.mProject.setText(String.valueOf(user.getProfileValues().getProjects()));
         if (user.getPublicInfo().getBio()==null || user.getPublicInfo().getBio().isEmpty()){
             holder.mBio.setVisibility(View.GONE);
         }else {

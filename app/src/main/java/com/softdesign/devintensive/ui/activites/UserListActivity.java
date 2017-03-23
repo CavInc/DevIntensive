@@ -57,7 +57,6 @@ public class UserListActivity extends AppCompatActivity {
         mRecyclerView.setLayoutManager (linearLayoutManager);
 
 
-
         setupToolbar();
         setupDrawer();
 
@@ -77,12 +76,15 @@ public class UserListActivity extends AppCompatActivity {
     }
 
     private void loadUsers() {
+        Log.d(TAG,"LOAD USERS");
         Call<UserListRes> call = mDataManager.getUserList();
         call.enqueue(new Callback<UserListRes>() {
             @Override
             public void onResponse(Call<UserListRes> call, Response<UserListRes> response) {
+                Log.d(TAG,"ON RESPONSE");
                 try {
                     mUsers = (List<UserListRes.UserData>) response.body().getData();
+
                     mUsersAdapter = new UsersAdapter(mUsers,new UsersAdapter.UserViewHolder.CustomClickListener(){
 
                         @Override
@@ -102,9 +104,11 @@ public class UserListActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<UserListRes> call, Throwable t) {
+                Log.d(TAG,"Куйня с запросом "+t.getMessage());
 
             }
         });
+        Log.d(TAG,"END LOAD USER");
     }
 
     private void setupDrawer() {
