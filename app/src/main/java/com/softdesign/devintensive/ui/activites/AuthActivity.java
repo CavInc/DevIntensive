@@ -15,10 +15,17 @@ import android.widget.TextView;
 import com.softdesign.devintensive.R;
 import com.softdesign.devintensive.data.managers.DataManager;
 import com.softdesign.devintensive.data.network.req.UserLoginReq;
+import com.softdesign.devintensive.data.network.res.UserListRes;
 import com.softdesign.devintensive.data.network.res.UserModelRes;
+import com.softdesign.devintensive.data.storage.models.Repository;
+import com.softdesign.devintensive.data.storage.models.RepositoryDao;
+import com.softdesign.devintensive.data.storage.models.User;
+import com.softdesign.devintensive.data.storage.models.UserDao;
+import com.softdesign.devintensive.utils.ConstantManager;
 import com.softdesign.devintensive.utils.NetworkStatusChecker;
 
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -26,19 +33,25 @@ import retrofit2.Response;
 
 public class AuthActivity extends BaseActivity implements View.OnClickListener {
 
+    private static final String TAG = ConstantManager.TAG_PREFIX + " AuthActivity";
     private Button mSignIn;
     private TextView mRemembderPassword;
     private EditText mLogin,mPassword;
     private CoordinatorLayout mCoordinatorLayout;
 
-    private DataManager mDatamanager;
+    private DataManager mDataManager;
+
+    private RepositoryDao mRepositoryDao;
+    private UserDao mUserDao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_auth);
 
-        mDatamanager = DataManager.getInstance();
+        mDataManager = DataManager.getInstance();
+        mUserDao = mDataManager.getDaoSession().getUserDao();
+        mRepositoryDao = mDataManager.getDaoSession().getRepositoryDao();
 
         mSignIn = (Button) findViewById(R.id.login_btn);
         mRemembderPassword = (TextView) findViewById(R.id.remember_txt);
@@ -77,8 +90,8 @@ public class AuthActivity extends BaseActivity implements View.OnClickListener {
     }
     private void loginSuccess(UserModelRes userModel){
         showSnackbar("ВХОД "+userModel.getData().getToken());
-        mDatamanager.getPreferensManager().saveAuthToken(userModel.getData().getToken());
-        mDatamanager.getPreferensManager().saveUserId(userModel.getData().getUser().getId());
+        mDataManager.getPreferensManager().saveAuthToken(userModel.getData().getToken());
+        mDataManager.getPreferensManager().saveUserId(userModel.getData().getUser().getId());
         saveUserValues(userModel);
         Intent loginIntent = new Intent(this,MainActivity.class);
         startActivity(loginIntent);
@@ -86,7 +99,7 @@ public class AuthActivity extends BaseActivity implements View.OnClickListener {
 
     private void signIn(){
         if (NetworkStatusChecker.isNetworkAvailable(this)) {
-            Call<UserModelRes> call = mDatamanager.loginUser(new UserLoginReq(mLogin.getText().toString(), mPassword.getText().toString()));
+            Call<UserModelRes> call = mDataManager.loginUser(new UserLoginReq(mLogin.getText().toString(), mPassword.getText().toString()));
             call.enqueue(new Callback<UserModelRes>() {
                 @Override
                 public void onResponse(Call<UserModelRes> call, Response<UserModelRes> response) {
@@ -116,7 +129,54 @@ public class AuthActivity extends BaseActivity implements View.OnClickListener {
                 userModel.getData().getUser().getProfileValues().getLineCodes(),
                 userModel.getData().getUser().getProfileValues().getProjects()
         };
-        mDatamanager.getPreferensManager().saveUserProfileValues(userValues);
+        mDataManager.getPreferensManager().saveUserProfileValues(userValues);
 
+    }
+
+    private void saveUserInDb(){
+        Call<UserListRes> call = mDataManager.getUserListFromNetwork();
+        call.enqueue(new Callback<UserListRes>() {
+            @Override
+            public void onResponse(Call<UserListRes> call, Response<UserListRes> response) {
+                try {
+                    if (response.code() == 200) {
+                        List<Repository> allRepositories = new ArrayList<Repository>();
+                        List<User> allUsers = new ArrayList<User>();
+
+                        for (UserListRes.UserData userRes : response.body().getData()) {
+                            allRepositories.addAll(getRepoListFromUserRes(userRes));
+                            allUsers.add(new User(userRes));
+                        }
+
+                        mRepositoryDao.insertOrReplaceInTx(allRepositories);
+                        mUserDao.insertOrReplaceInTx(allUsers);
+
+
+                    }else {
+                        showSnackbar("Список пользователей не может быть получен");
+                        Log.e(TAG," onResponse : "+String.valueOf(response.errorBody().source()));
+                    }
+
+                }catch (Exception e){
+                    e.printStackTrace();
+                    showSnackbar("Что то пошло не так");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<UserListRes> call, Throwable t) {
+
+            }
+        });
+    }
+
+    private List<Repository> getRepoListFromUserRes(UserListRes.UserData userData){
+        final String userId = userData.getId();
+
+        List<Repository> repositories = new ArrayList<>();
+        for (UserModelRes.Repo repo : userData.getRepositories().getRepo()) {
+            repositories.add(new Repository(repo,userId));
+        }
+        return  repositories;
     }
 }

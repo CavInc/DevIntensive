@@ -49,6 +49,7 @@ public class UserListRes {
         @Expose
         private String updated;
 
+
         public UserModelRes.Repositories getRepositories() {
             return repositories;
         }
@@ -63,6 +64,10 @@ public class UserListRes {
 
         public String getFullName() {
             return firstName+" "+secondName;
+        }
+
+        public String getId() {
+            return id;
         }
     }
 }
