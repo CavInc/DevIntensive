@@ -12,6 +12,62 @@
         android:orientation="vertical">
 
         <LinearLayout
+            android:id="@+id/user_info_wraper"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/user_info_size"
+            android:background="@color/color_primary"
+            android:gravity="center"
+            android:orientation="horizontal">
+            app:behavior_min_height="@dimen/size_medium_56"
+            app:layout_behavior=".ui.behaviors.UserInfoBehavior"
+            >
+
+            <LinearLayout
+                style="@style/user_info.item"
+                android:layout_weight="1">
+                <TextView
+                    android:id="@+id/user_info_raid_txt"
+                    style="@style/user_info.values"
+                    android:text="5"/>
+                <TextView
+                    style="@style/user_info.hit"
+                    android:text="Рейтинг"/>
+            </LinearLayout>
+            <View
+                android:layout_width="1dp"
+                android:layout_height="72dp"
+                android:background="@color/gray_light"
+                />
+            <LinearLayout
+                style="@style/user_info.item"
+                android:layout_weight="1">
+                <TextView
+                    android:id="@+id/user_info_code_txt"
+                    style="@style/user_info.values"
+                    android:text="5"/>
+                <TextView
+                    style="@style/user_info.hit"
+                    android:text="Написано строк кода"/>
+            </LinearLayout>
+            <View
+                android:layout_width="1dp"
+                android:layout_height="72dp"
+                android:background="@color/gray_light"
+                />
+            <LinearLayout
+                style="@style/user_info.item"
+                android:layout_weight="1">
+                <TextView
+                    android:id="@+id/user_info_proect_txt"
+                    style="@style/user_info.values"
+                    android:text="5"/>
+                <TextView
+                    style="@style/user_info.hit"
+                    android:text="Проектов"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

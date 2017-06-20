@@ -20,7 +20,7 @@ public class UserInfoBehavior <V extends LinearLayout> extends AppBarLayout.Scro
     public UserInfoBehavior(Context context, AttributeSet attrs){
         super(context,attrs);
         TypedArray a=context.obtainStyledAttributes(attrs, R.styleable.UserInfoBehavior);
-        mMinUserInfoHeight = a.getDimensionPixelSize(R.styleable.UserInfoBehavior_begavior_min_heigth,56);
+        mMinUserInfoHeight = a.getDimensionPixelSize(R.styleable.UserInfoBehavior_begavior_min_height,56);
         a.recycle();
 
         mMinAppBarHeight = UIHelper.getActionBarHeight()*UIHelper.getStatusBarHeight();
