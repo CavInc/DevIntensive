@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    android:id="@+id/main_coordinator_container"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+    <android.support.design.widget.AppBarLayout
+            android:id="@+id/appbar_layout"
+            android:theme="@style/AppTheme.AppBarOverlay"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:background="@color/color_primary">
+           <!-- android:fitsSystemWindows="true"-->
+
+    <android.support.design.widget.CollapsingToolbarLayout
+                android:id="@+id/collapsing_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:contentScrim="@color/color_primary"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/profile_image_size"
+                android:fitsSystemWindows="true">
+                <ImageView
+                        android:id="@+id/user_photo_img"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/profile_image_size"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/user_bg"
+                        />
+                <RelativeLayout
+                    android:id="@+id/profile_placeholder"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/gray_background"
+                    android:visibility="gone">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_above="@id/photo_placeholder"
+                        android:layout_marginBottom="@dimen/spacing_small_8"
+                        android:fontFamily="sans-serif-medium"
+                        android:textColor="@color/white"
+                        android:text="@string/user_profile_plaseholder_image"
+                        />
+                    <ImageView
+                        android:id="@+id/photo_placeholder"
+                        android:layout_width="@dimen/plaseholder_photo_size_90"
+                        android:layout_height="@dimen/plaseholder_photo_size_90"
+                        android:layout_alignParentBottom="true"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginBottom="@dimen/spacing_large_56"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/add_a_photo_48px"/>
+
+                </RelativeLayout>
+            </FrameLayout>
+
+
+        <android.support.v7.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    app:theme="@style/ToolBarStyle"
+                    app:popupTheme="@style/AppTheme.PopupOverlay"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:titleTextColor="@color/white"
+                    app:layout_collapseMode="pin"/>
+    </android.support.design.widget.CollapsingToolbarLayout>
+    </android.support.design.widget.AppBarLayout>
+
+
+
+
+    <include layout="@layout/static_profile_content"/>
+
+
+</android.support.design.widget.CoordinatorLayout>
+

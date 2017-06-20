@@ -72,6 +72,10 @@ public class UserModelRes {
         @SerializedName("updated")
         @Expose
         private String updated;
+
+        public List<Repo> getRepo() {
+            return repo;
+        }
     }
     public class Repo {
         @SerializedName("_id")
@@ -83,6 +87,10 @@ public class UserModelRes {
         @SerializedName("title")
         @Expose
         private String title;
+
+        public String getGit() {
+            return git;
+        }
     }
     public class PublicInfo {
         @SerializedName("bio")
