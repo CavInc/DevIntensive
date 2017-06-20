@@ -81,7 +81,6 @@ public class UserListActivity extends AppCompatActivity {
         call.enqueue(new Callback<UserListRes>() {
             @Override
             public void onResponse(Call<UserListRes> call, Response<UserListRes> response) {
-                Log.d(TAG,"ON RESPONSE");
                 try {
                     mUsers = (List<UserListRes.UserData>) response.body().getData();
 
